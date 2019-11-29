@@ -1,0 +1,41 @@
+?start : expr*
+
+?expr  : atom
+       | list
+
+?list  : "(" expr* ")" -> lista 
+
+?number : INT -> inteiro
+       | FLOAT -> numerico
+
+?name  : STRING -> nome
+
+?bool : TRUE -> boolean
+      | FALSE -> boolean
+
+quote : "'"expr* -> quote
+
+procedure : "(" list* ")"
+
+// infix : "[" expr* "]"
+//        | "{" expr* "}"
+
+// colon : (expr*)? -> colon
+
+?atom  : SYMBOL -> simbolo
+       | number
+       | name
+       | bool
+       | quote
+       
+
+// Terminais
+SYMBOL.0  : /[-!+\/*@$%^&~<>?|\\\w=]+/
+STRING    : /"[^"\\]*(\\[^\n\t\r\f][^"\\]*)*"/
+INT.1     : /-?\d+/
+FLOAT.2   : /-?\d+\.\d+/
+TRUE      : /#t/
+FALSE     : /#f/
+
+%ignore /\s+/
+%ignore /;[^\n]*/
