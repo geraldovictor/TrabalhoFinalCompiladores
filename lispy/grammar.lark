@@ -1,41 +1,46 @@
+
+grammar = r"""
 ?start : expr*
 
-?expr  : atom
-       | list
+?expr  : list
+       | atribute
+       | func
+       | tag
+       | atom
 
-?list  : "(" expr* ")" -> lista 
+?list  : "fython" "(" (expr ",")* ")" -> lista
 
-?number : INT -> inteiro
-       | FLOAT -> numerico
+?atribute : "{" ("'" atom ":" atom "'" ",")+ "}" -> atributo
+
+?func  : "[" list+ "]" -> funcao
+
+?tag   :  "'" name+ "'" -> tag
 
 ?name  : STRING -> nome
 
-?bool : TRUE -> boolean
-      | FALSE -> boolean
-
-quote : "'"expr* -> quote
-
-procedure : "(" list* ")"
-
-// infix : "[" expr* "]"
-//        | "{" expr* "}"
-
-// colon : (expr*)? -> colon
-
 ?atom  : SYMBOL -> simbolo
-       | number
        | name
-       | bool
-       | quote
-       
-
+      
 // Terminais
-SYMBOL.0  : /[-!+\/*@$%^&~<>?|\\\w=]+/
-STRING    : /"[^"\\]*(\\[^\n\t\r\f][^"\\]*)*"/
-INT.1     : /-?\d+/
-FLOAT.2   : /-?\d+\.\d+/
-TRUE      : /#t/
-FALSE     : /#f/
+SYMBOL  : /[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]/
+STRING    : /[a-zA-Z0-9 ]+/
 
 %ignore /\s+/
 %ignore /;[^\n]*/
+"""
+
+lark = Lark(grammar, start='expr')
+
+
+"""
+### Para teste ###
+      src = """
+
+fython (ola tudo, 'div' , {'class : nome',}, {'id : number',},) 
+
+"""
+print(lark.parse(src))
+print()
+print(lark.parse(src).pretty())
+
+"""
