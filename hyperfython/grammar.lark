@@ -1,5 +1,4 @@
 
-grammar = r"""
 ?start : expr*
 
 ?expr  : list
@@ -27,20 +26,22 @@ STRING    : /[a-zA-Z0-9 ]+/
 
 %ignore /\s+/
 %ignore /;[^\n]*/
-"""
-
-lark = Lark(grammar, start='expr')
 
 
-"""
-### Para teste ###
-      src = """
+// """
 
-fython (ola tudo, 'div' , {'class : nome',}, {'id : number',},) 
+// lark = Lark(grammar, start='expr')
 
-"""
-print(lark.parse(src))
-print()
-print(lark.parse(src).pretty())
 
-"""
+// """
+// ### Para teste ###
+//       src = """
+
+// fython (ola tudo, 'div' , {'class : nome',}, {'id : number',},) 
+
+// """
+// print(lark.parse(src))
+// print()
+// print(lark.parse(src).pretty())
+
+// """

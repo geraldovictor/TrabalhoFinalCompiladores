@@ -5,64 +5,53 @@ from types import MappingProxyType
 
 from .symbol import Symbol
 
+HTMLTAGS = ['p', 'div', 'small', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'head', 'footer', 'main', 'body']
+CLOSEDHTMLTAGS = ['img', 'input', 'br']
 
-def eval(x, env=None):
-    """
-    Avalia expressão no ambiente de execução dado.
-    """
-    
-    # Cria ambiente padrão, caso o usuário não passe o argumento opcional "env"
+def eval(htmlObj, env=None):
+
     if env is None:
         env = ChainMap({}, global_env)
-    
-    # Avalia tipos atômicos
-    if isinstance(x, Symbol):
-        return env[x]
-    elif isinstance(x, (int, float, bool, str)):
-        return x
 
-    # Avalia formas especiais e listas
-    head, *args = x
-    
-    # Comando (if <test> <then> <other>)
-    # Ex: (if (even? x) (quotient x 2) x)
-    if head == Symbol.IF:
-        (condition, consequence, alternative) = args
-        expr = (consequence if eval(condition, env) else alternative)
-        return eval(expr, env)
+    html = ""
+    for initalTag in htmlObj:
+        
+        for tag, values in initalTag.items():
 
-    # Comando (define <symbol> <expression>)
-    # Ex: (define x (+ 40 2))
-    elif head == Symbol.DEFINE:
-        (var, expr) = args
-        env[var] = eval(expr, env)
+            # values is a dict
+            parsed_attributes = ""
+            parsed_content = ""
+            try: 
+                for attribute, attribute_value in values.items():
 
-    # Comando (quote <expression>)
-    # (quote (1 2 3))
-    elif head == Symbol.QUOTE:
-        return args[0] # return the firs element -> "'"
+                    if attribute == 'content':
+                        for obj in  attribute_value:
+                            for inner_attr, innter_attr_value in obj.items():
+                                if inner_attr == 'text':
+                                    parsed_content += innter_attr_value
+                                else:
+                                    parsed_content += eval(
+                                        [{inner_attr: innter_attr_value}, ]
+                                    )
+                    elif attribute == 'style':
+                        classList = []
+                        for classes, elements in attribute_value.items():
+                            classList.append(f'{classes}:{elements};')
+                        
+                        parsed_attributes += f'{attribute}=" {" ".join(classList)} "'
+                    else:
+                        parsed_attributes += f' {attribute}="{attribute_value}" '
+                
+                if tag in HTMLTAGS:
+                    html += f"<{tag} {parsed_attributes}>{parsed_content}</{tag}>"
+                elif tag in CLOSEDHTMLTAGS:
+                    html += f"<{tag} {parsed_attributes}>"
+                else:
+                    raise Exception(f"Syntax Error: tag {tag} not recognized")
 
-    # # Comando (let <expression> <expression>)
-    # # (let ((x 1) (y 2)) (+ x y))
-    # elif head == Symbol.LET:
-    #     (bindings, body) = args
-    #     proc = eval(bindings, env)
-
-    # # Comando (lambda <vars> <body>)
-    # # (lambda (x) (+ x 1))
-    # elif head == Symbol.LAMBDA:
-    #     (formals, body) = args
-    #     def procedure(*values):
-    #         local = dict(zip(formals, values))
-    #         return eval(body, ChainMap(local, env))
-    #     return procedure
-
-    # Lista/chamada de funções
-    # (sqrt 4)
-    else:
-        proc = eval(head, env)
-        args = (eval(arg, env) for arg in x[1:])
-        return proc(*args)
+            except AttributeError:
+                raise AttributeError('Expected a dict, got a list')
+    return html
 
 
 #

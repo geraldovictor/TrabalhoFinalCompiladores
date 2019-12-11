@@ -2,19 +2,10 @@
 requires = ["flit"]
 build-backend = "flit.buildapi"
 
-
 [tool.flit.metadata]
-module = "lispy"
-dist-name = "lispy-fabio"
-author = "Fábio Macêdo Mendes"
-author-email = "fabiomacedomendes@gmail.com"
-home-page = "http://github.com/fabiommendes/lispy/"
+module = "hyperfython"
+author = "Leonardo Barreiros"
+author-email = "leossb36@gmail.com"
+home-page = "https://github.com/leossb36"
 classifiers = ["License :: OSI Approved :: MIT License"]
-requires = [
-    "click",
-    "lark-parser",
-]
 
-
-[tool.flit.scripts]
-lispy = "lispy.__main__:main"

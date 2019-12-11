@@ -1,6 +1,6 @@
 class Symbol:
     """
-    Representa um símbolo Lisp.
+    representação de simbolos html
 
     Diferentemente de strings, símbolos com o mesmo valor possuem a mesma identidade.
     """
@@ -35,18 +35,10 @@ class Symbol:
 
 # Formas especiais
 Symbol.QUOTE = Symbol('quote')
-Symbol.LET = Symbol('let')
-Symbol.IF = Symbol('if')
-Symbol.LAMBDA = Symbol('lambda')
-Symbol.DEFINE = Symbol('define')
-Symbol.BEGIN = Symbol('begin')
+Symbol.BEGIN = Symbol('fython')
 
 # Funções úteis
 Symbol.LIST = Symbol('list')
-Symbol.ADD = Symbol('+')
-Symbol.SUB = Symbol('-')
-Symbol.MUL = Symbol('*')
-Symbol.DIV = Symbol('/')
 # Symbol.COLON = Symbol(':')
 
 class _Var:
