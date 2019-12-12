@@ -6,9 +6,9 @@ x, y, a, b, c, f, g, h, op = map(Symbol, 'x y a b c f g h op'.split())
 
 class testHTMLGrammar:
     def test_one_tag(self):
-        assert parse('fython (div)') == "<div ></div>"
-        assert parse('fython (h1)') == "<h1 ></h1>"
-        assert parse('fython (br)') == "<br >"
+        assert parse('fython [{ div : {content: []}}]') == "<div ></div>"
+        assert parse('fython [{ h1: {content: []}}]') == "<h1 ></h1>"
+        assert parse('fython [{ br: {content: []}}]') == "<br >"
 
 
 class TestHTMLGrammarHard:

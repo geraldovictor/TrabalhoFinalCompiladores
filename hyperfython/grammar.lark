@@ -1,47 +1,27 @@
+?start : "fython" block
 
-?start : expr*
+?block : "[" expr "]" -> block
 
-?expr  : list
-       | atribute
-       | func
-       | tag
-       | atom
+?expr  : dict* -> expr
 
-?list  : "fython" "(" (expr ",")* ")" -> lista
+?dict  : "{" (atom ":" dict)* "}" -> dict
+       | "{" "content" ":" block "}"
+       | "{" "style" ":" block "}"
+       | "{" "text" ":" block "}"
+       | "{" pair "}"
 
-?atribute : "{" ("'" atom ":" atom "'" ",")+ "}" -> atributo
+?pair : atom ":" atom -> pair
+      | in_pair
+      | atom*
 
-?func  : "[" list+ "]" -> funcao
+?in_pair : (pair "," pair)+ -> in_pair
 
-?tag   :  "'" name+ "'" -> tag
+?atom : CHAR -> name
+      | SYMBOL -> symbol
 
-?name  : STRING -> nome
-
-?atom  : SYMBOL -> simbolo
-       | name
-      
 // Terminais
 SYMBOL  : /[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]/
-STRING    : /[a-zA-Z0-9 ]+/
+CHAR    : /[a-zA-Z0-9]\w*/
 
 %ignore /\s+/
 %ignore /;[^\n]*/
-
-
-// """
-
-// lark = Lark(grammar, start='expr')
-
-
-// """
-// ### Para teste ###
-//       src = """
-
-// fython (ola tudo, 'div' , {'class : nome',}, {'id : number',},) 
-
-// """
-// print(lark.parse(src))
-// print()
-// print(lark.parse(src).pretty())
-
-// """
