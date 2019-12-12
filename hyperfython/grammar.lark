@@ -8,13 +8,10 @@
        | "{" "content" ":" block "}"
        | "{" "style" ":" block "}"
        | "{" "text" ":" block "}"
-       | "{" pair "}"
+       | "{" pair ("," pair)* "}"
 
 ?pair : atom ":" atom -> pair
-      | in_pair
       | atom*
-
-?in_pair : (pair "," pair)+ -> in_pair
 
 ?atom : CHAR -> name
       | SYMBOL -> symbol

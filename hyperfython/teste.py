@@ -1,4 +1,4 @@
-from hyperfython import var, env, Symbol, parse, eval, global_env
+from hyperfython import var, env, Symbol, parse, eval, global_env, htmltags
 
 run = lambda src, env=None: eval(parse(src), env)
 x, y, a, b, c, f, g, h, op = map(Symbol, 'x y a b c f g h op'.split())
@@ -22,4 +22,4 @@ class TestHTMLGrammarHard:
         assert parse('fython [{ div :{ content :[{ div :{ content :[{ div :{}}]}}]}}]') == "<div ><div ><div ></div></div></div>"
 
     def close_tags_empty_tag_inside_tag(self):
-        assert parse('fython [{ head : { content : [{ p :{ content : [{ text :  TITLE }]},},{ br : {}}],}},{ body : { content : [{ p :{ content : [{ text :  LINE 1 }]}},{ br : {}},{ p :{ content : [{ text :  LINE 2 }]}},],}},]') == "<head ><p >TITLE</p><br ></head><body ><p >LINE 1</p><br ><p >LINE 2</p></body>"
+        assert parse('fython [{head : {content : [{ p :{content : [{text :  TITLE}]}}, { br : {}}]}, { body : { content : [{ p :{ content : [{ text :  LINE 1}]}}, { br : {}}, { p :{content : [{text :  LINE 2 }]}}]}}]') == "<head ><p >TITLE</p><br ></head><body ><p >LINE 1</p><br ><p >LINE 2</p></body>"

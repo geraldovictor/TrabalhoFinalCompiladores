@@ -5,7 +5,7 @@ from types import MappingProxyType
 
 from .symbol import Symbol
 
-from htmltags import HTMLTAGS, CLOSEDHTMLTAGS
+from .htmltags import HTMLTAGS, CLOSEDHTMLTAGS
 
 def eval(htmlObj, env=None):
 
