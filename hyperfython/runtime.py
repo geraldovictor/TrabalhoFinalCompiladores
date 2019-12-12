@@ -5,8 +5,7 @@ from types import MappingProxyType
 
 from .symbol import Symbol
 
-HTMLTAGS = ['p', 'div', 'small', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'head', 'footer', 'main', 'body']
-CLOSEDHTMLTAGS = ['img', 'input', 'br']
+from htmltags import HTMLTAGS, CLOSEDHTMLTAGS
 
 def eval(htmlObj, env=None):
 

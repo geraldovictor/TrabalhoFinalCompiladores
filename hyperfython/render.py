@@ -1,7 +1,5 @@
 from collections import OrderedDict
-
-HTMLTAGS = ['p', 'div', 'small', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'head', 'footer', 'main', 'body']
-CLOSEDHTMLTAGS = ['img', 'input', 'br']
+from htmltags import HTMLTAGS, CLOSEDHTMLTAGS
 
 
 def eval(htmlObj):
@@ -54,13 +52,5 @@ def eval(htmlObj):
 # <div  class="row"  id="row" ><div  class="col md-6 lg-6" ><p >Coluna 1</p></div><div  class="col md-6 lg-6" ><p >Coluna 2</p></div></div>
 # <div ><div ><div ></div></div></div>
 # <head ><p >TITLE</p><br ></head><body ><p >LINE 1</p><br ><p >LINE 2</p></body>
-# Traceback (most recent call last):
-#   File "render.py", line 214, in <module>
-#     {'text': 'abcd'}]
-#   File "render.py", line 57, in new_eval
-#     for attribute, attribute_value in values.items():
-# AttributeError: 'list' object has no attribute 'items'
-# <p >abcd</p>
 
-
-
+# print(eval([{'div':{'content':[{'div':{'content':[{'div':{}}]}}]}}]))
