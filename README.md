@@ -11,10 +11,10 @@ Para escrever um código na linguagem Hyperfython, o programador deve serguir a 
 * Dentro dos colchetes o usário pode passar o conteúdo que estará dentro da tag, seus atributos, e uma tag dentro de outra.
 * Seguindo a ideia de um dicionário, e de acordo com a gramática definida será: um bloco (que pode possuir vários dicionários), um dicionário (que pode possuir mais de um atributo chave-valor). E toda essa parte pode ser chamada recursivamente.
 
-Exemplo de input: <br>
+### Exemplo de input: <br>
 ![Código](img/fython.png)
 
-Exempro de output: <br>
+### Exempro de output: <br>
 ![Out](img/out.png)
 
 ### Metodologia
