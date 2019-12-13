@@ -13,12 +13,12 @@
 ?pair : atom ":" atom -> pair
       | atom*
 
-?atom : CHAR -> name
+?atom : CHAR -> char
       | SYMBOL -> symbol
 
 // Terminais
-SYMBOL  : /[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]/
-CHAR    : /[a-zA-Z0-9]\w*/
+SYMBOL  : /[!$%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]/
+CHAR    : /([a-zA-Z0-9]\.\w)+/
 
 %ignore /\s+/
 %ignore /;[^\n]*/
