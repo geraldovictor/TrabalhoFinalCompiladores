@@ -1,33 +1,28 @@
 from lark import Lark, InlineTransformer
 from pathlib import Path
 
-from .runtime import Symbol
-
-
 class HTMLTransformer(InlineTransformer):
+
+    def funcao(self, *args):
+      return ['funcao', *args]
+
+    def lista(self, *args):
+      return ['lista', *args]
     
-    def start(self, *args): 
-        return [Symbol.BEGIN, *args] # begin == "fython"
+    # def lista2(self, *args):
+    #   return ['lista2', *args]
     
-    def block(self, *args):
-        return list(args) # args -> array de dict
-
-    def pair(self, key, value):
-        return (key, value)
-
-    def dictionary(self, *args):
-        return dict(args)
-
-    def atom(self, token):
-        try:
-            return str(token)
-        except ValueError:
-            try:
-                if token.type == 'SYMBOL':
-                    return 'SYMBOL'
-            except ValueError:
-                if token.type == 'STRING':
-                    return str(token[1:-1])
+    # def lista3(self, *args):
+    #   return ['lista3', *args]
+    
+    def tag(self,*args):
+      return ['tag', *args]
+    
+    def atributo(self, *args):
+      return ['atributo', *args]
+    
+    def nome(self, x):
+      return str(x)
 
     
 def parse(src: str):
