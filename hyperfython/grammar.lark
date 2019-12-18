@@ -1,24 +1,25 @@
-?start : "fython" block
+from lark import Lark, InlineTransformer
 
-?block : "[" expr "]" -> block
+grammar = Lark(r"""
 
-?expr  : dict* -> expr
+?start : expr
 
-?dict  : "{" (atom ":" dict)* "}" -> dict
-       | "{" "content" ":" block "}"
-       | "{" "style" ":" block "}"
-       | "{" "text" ":" block "}"
-       | "{" pair ("," pair)* "}"
+?expr  : list
 
-?pair : atom ":" atom -> pair
-      | atom*
+?list  : "f" "(" ( (name "," tag|tag|name) ("," atribute)* ("," func)? ) ")" -> lista
 
-?atom : CHAR -> char
-      | SYMBOL -> symbol
+?atribute :  ( "$" name ":" name )  -> atributo
 
+?func  : "{" list+ "}" -> funcao
+
+?tag   :  "*" name  -> tag
+
+?name  : STRING -> nome
+      
 // Terminais
-SYMBOL  : /[!$%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]/
-CHAR    : /([a-zA-Z0-9]\.\w)+/
+SYMBOL  : /[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]/
+STRING    : /[a-zA-Z0-9 ]+/
 
 %ignore /\s+/
 %ignore /;[^\n]*/
+""")
