@@ -1,8 +1,8 @@
 from lark import Lark, InlineTransformer
-from pathlib import Path
+from hyperfython import grammar
+# from pathlib import Path
 
 class SExprTransformer(InlineTransformer):
-
     def funcao(self, *args):
       return ['funcao', *args]
 
@@ -24,17 +24,16 @@ class SExprTransformer(InlineTransformer):
     
 def parse(src: str):
 
-    return parser.parse(src)
+    return grammar.parse(src)
 
 
-def _make_grammar():
-    """
-    Retorna uma gramática do Lark inicializada.
-    """
+# def _make_grammar():
+#     """
+#     Retorna uma gramática do Lark inicializada.
+#     """
+#     path = Path(__file__).parent / 'grammar.lark'
+#     with open(path) as fd:
+#         grammar = Lark(fd, parser='lalr', transformer=SExprTransformer())
+#     return grammar
 
-    path = Path(__file__).parent / 'grammar.lark'
-    with open(path) as fd:
-        grammar = Lark(fd, parser='lalr', transformer=HTMLTransformer())
-    return grammar
-
-parser = _make_grammar()
+# parser = _make_grammar()
