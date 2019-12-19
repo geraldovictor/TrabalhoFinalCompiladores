@@ -6,19 +6,23 @@ grammar = Lark(r"""
 
 ?expr  : list
 
-?list  : "f" "(" ( (name "," tag|tag|name) ("," atribute)* ("," func)? ) ")" -> lista
+?list  : "f" "(" ( (namefora "," tag|tag|namefora) ("," atribute)* ("," func)? ) ")" -> lista
 
-?atribute :  ( "$" name ":" name )  -> atributo
+
+?atribute :  ( "$" namedentro ":" namedentro )  -> atributo
 
 ?func  : "{" list+ "}" -> funcao
 
-?tag   :  "*" name  -> tag
+?tag   :  "*" namedentro  -> tag
 
-?name  : STRING -> nome
+?namedentro  : STRINGDENTRO -> nomedentro
+
+?namefora  : STRINGFORA -> nomefora
       
 // Terminais
 SYMBOL  : /[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/ ]/
-STRING    : /[a-zA-Z0-9 ]+/
+STRINGDENTRO    : /[a-zA-Z0-9]+/
+STRINGFORA    : /[a-zA-Z0-9 ]+/
 
 %ignore /\s+/
 %ignore /;[^\n]*/
