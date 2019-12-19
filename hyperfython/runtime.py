@@ -38,5 +38,6 @@ def retornaHtml(sexpr):
   pilha = []
   createHtml(sexpr,fila,pilha)
   fila.append('>')
-  return fila + pilha
+  resultado = ''.join(map(str,fila)) + ''.join(map(str,pilha))
+  return resultado
 
