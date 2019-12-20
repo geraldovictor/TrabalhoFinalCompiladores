@@ -28,14 +28,26 @@ Para escrever um código na linguagem Hyperfython, o programador deve serguir a 
 
 
 ### Para rodar o projeto:
-Para a execução do projeto basta clonar o repositório, acessar a pasta 'hyperfython' 
-e executar o comando a seguir em um terminal linux(de preferência):
+Para a execução do projeto basta clonar o repositório, acessar a pasta 'hyperfython'
+É aconselhável criar uma máquina virtual e instalar os requirements, para fazer isso basta dar os seguintes comandos dentro da pasta do projeto:
+
+> python3 -m venv env
+
+> pip install requirements.txt
+
+Para executar o terminal iterativo digite o comando a seguir:
+
 > python3 \_\_main\_\_.py
 
+Para rodar os testes entre na pasta test e digite o seguinte comando:
+
+> pytest teste.py
 ### Metodologia
 * Utilizamos a biblioteca Lark do Python, para facilitar o desenvolvimento do Grammar.
-* Criamos o Transformer que retorna a string a ser analizada pelo Eval.
-* Desenvolvemos o Eval para exportar o código na estrutura de HTML.
+* Criamos o Transformer que retorna a Sexpr a ser analizada pelo Eval.
+* Desenvolvemos o Eval para avaliar se a sintaxe é válida (se a tag está dentro das que consideramos válidas)
+* Se passar pelo Eval chamamos uma função que retorna a string do código em HTML e printamos ela na tela
+
 
 ## Autores
 |Nome|matricula|github|
