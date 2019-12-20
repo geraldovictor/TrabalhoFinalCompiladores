@@ -127,7 +127,7 @@ def createHtml(lista,fila,pilha):
           fila.append('<{} '.format(i[1][1]))
           pilha.insert(0,'</{}>'.format(i[1][1]))
         elif i[1][1] in CLOSEDHTMLTAGS:
-          out.append('<{}>'.format(i[1][1]))
+          fila.append('<{}'.format(i[1][1]))
       if i[0] == 'atributo':
         if i[1][1] in ATRIBUTO:
           fila.append('{}="{}" '.format(i[1][1], i[2][1]))
@@ -143,17 +143,61 @@ def retornaHtml(sexpr):
   resultado = ''.join(map(str,fila)) + ''.join(map(str,pilha))
   return resultado
 
-
+########################################### Testes ############################################################
 
 def test_one_tag():
-  tree = grammar.parse('f(*div, $class : teste,{f(asdad,*p, $style: njsahd , {f(*div)})})')
+  tree = grammar.parse('f(*div)')
   sexpr = SExprTransformer().transform(tree)
-  assert retornaHtml(sexpr) == '<div class="teste" >asdad <p style="njsahd" ><div ></div></p></div>'
+  assert retornaHtml(sexpr) == '<div ></div>'
+
+  tree = grammar.parse('f(string fora, *div)')
+  sexpr = SExprTransformer().transform(tree)
+  assert retornaHtml(sexpr) == 'string fora <div ></div>'
+  
+  tree = grammar.parse('f(*p)')
+  sexpr = SExprTransformer().transform(tree)
+  assert retornaHtml(sexpr) == '<p ></p>'
+
+  tree = grammar.parse('f(string fora, *span)')
+  sexpr = SExprTransformer().transform(tree)
+  assert retornaHtml(sexpr) == 'string fora <span ></span>'
+
+  tree = grammar.parse('f(*img)')
+  sexpr = SExprTransformer().transform(tree)
+  assert retornaHtml(sexpr) == '<img>'
 
 def test_inside_tag():
-  tree = grammar.parse('f(*div, $class : teste,{f(asdad,*p, $style: njsahd , {f(*div)})})')
-  sexpr = SExprTransformer().transform(tree)
-  assert retornaHtml(sexpr) == '<div class="teste" >asdad <p style="njsahd" ><div ></div></p></div>'
 
-def test_multiple_tag_inside_tag(self):
-  assert parse('') == "<div  class='row'  id='row' ><div  class='col md-6 lg-6' ><p >Coluna 1</p></div><div  class='col md-6 lg-6' ><p >Coluna 2</p></div></div>"
+    tree = grammar.parse('f(*div, $class : teste ,{f(texto dentro da tag)})')
+    sexpr = SExprTransformer().transform(tree)
+    assert retornaHtml(sexpr) == '<div class="teste" >texto dentro da tag </div>'
+
+    tree = grammar.parse('f(*span, $class : teste ,{f(texto dentro da tag)})')
+    sexpr = SExprTransformer().transform(tree)
+    assert retornaHtml(sexpr) == '<span class="teste" >texto dentro da tag </span>'
+
+    tree = grammar.parse('f(*p, $class : paragraph ,{f(texto dentro da tag)})')
+    sexpr = SExprTransformer().transform(tree)
+    assert retornaHtml(sexpr) == '<p class="paragraph" >texto dentro da tag </p>'
+
+    tree = grammar.parse('f(*div, $class : teste ,{f(texto dentro da tag)})')
+    sexpr = SExprTransformer().transform(tree)
+    assert retornaHtml(sexpr) == '<div class="teste" >texto dentro da tag </div>'
+
+def test_multiple_tag_inside_tag():
+    
+    tree = grammar.parse('f(*div, $class : teste,{f(asdad,*p, $id: njsahd , {f(*div)})})')
+    sexpr = SExprTransformer().transform(tree)
+    assert retornaHtml(sexpr) == '<div class="teste" >asdad <p id="njsahd" ><div ></div></p></div>'
+
+    tree = grammar.parse('f(string, *div, $class : nome, {f(string2, *h1, $color : blue)})')
+    sexpr = SExprTransformer().transform(tree)
+    assert retornaHtml(sexpr) == 'string <div class="nome" >string2 <h1 color="blue" ></h1></div>'
+
+    tree = grammar.parse('f(string, *span, $class : nome, $id : number, {f(string2, *h1, $color : blue)})')
+    sexpr = SExprTransformer().transform(tree)
+    assert retornaHtml(sexpr) == 'string <span class="nome" id="number" >string2 <h1 color="blue" ></h1></span>'
+
+    tree = grammar.parse('f(string, *div, $class : nome, {f(string2, *h1, $color : blue,{f(Texto dentro do h1)})})')
+    sexpr = SExprTransformer().transform(tree)
+    assert retornaHtml(sexpr) == 'string <div class="nome" >string2 <h1 color="blue" >Texto dentro do h1 </h1></div>'
