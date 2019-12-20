@@ -44,8 +44,10 @@ Para rodar os testes entre na pasta test e digite o seguinte comando:
 > pytest teste.py
 ### Metodologia
 * Utilizamos a biblioteca Lark do Python, para facilitar o desenvolvimento do Grammar.
-* Criamos o Transformer que retorna a string a ser analizada pelo Eval.
-* Desenvolvemos o Eval para exportar o código na estrutura de HTML.
+* Criamos o Transformer que retorna a Sexpr a ser analizada pelo Eval.
+* Desenvolvemos o Eval para avaliar se a sintaxe é válida (se a tag está dentro das que consideramos válidas)
+* Se passar pelo Eval chamamos uma função que retorna a string do código em HTML e printamos ela na tela
+
 
 ## Autores
 |Nome|matricula|github|
