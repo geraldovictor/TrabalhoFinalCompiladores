@@ -29,18 +29,15 @@ def createHtml(lista,fila,pilha):
       if i[0] == 'atributo':
         if i[1][1] in ATRIBUTO:
           fila.append('{}="{}" '.format(i[1][1], i[2][1]))
-      if i[0] == 'funcao':
+      if i == lista[-1] and lista[-1][0] != 'nomefora':
         fila.append('>')
+      if i[0] == 'funcao':   
         createHtml(i[1],fila, pilha)
 
 def retornaHtml(sexpr):
   fila = []
   pilha = []
   createHtml(sexpr,fila,pilha)
-  if (len(sexpr) == 2 and sexpr[1][0] == 'tag' ):
-    fila.append('>')  
-  elif(len(sexpr) > 2 and sexpr[2][0] == 'tag'):
-    fila.append('>')  
   resultado = ''.join(map(str,fila)) + ''.join(map(str,pilha))
   return resultado
 
