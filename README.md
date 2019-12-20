@@ -1,21 +1,20 @@
 # Trabalho Final Compiladores
 
-### Linguagem Hyperfython
+### Linguagem Hyperfython v.2.0
 
 O projeto tem como finalidade criar uma linguagem para escrever HTML em outra sintaxe e exportar em um compilador de nossa autoria.
 
 ### Como usar
 Para escrever um código na linguagem Hyperfython, o programador deve serguir a seguinte sintaxe:<br>
 
-* O código deve iniciar com a palavra 'fython' seguido de colchetes '[ ]'
-* Dentro dos colchetes o usário pode passar o conteúdo que estará dentro da tag, seus atributos, e uma tag dentro de outra.
-* Seguindo a ideia de um dicionário, e de acordo com a gramática definida será: um bloco (que pode possuir vários dicionários), um dicionário (que pode possuir mais de um atributo chave-valor). E toda essa parte pode ser chamada recursivamente.
-
-### Exemplo de input: <br>
-![Código](img/fython.png)
-
-### Exempro de output: <br>
-![Out](img/out.png)
+* O código deve iniciar com a letra 'f' seguido de parenteses '( )'
+* Dentro dos parenteses é aceito: uma string, uma tag e seus atributos, e uma nova função, onde pode se repetir as entradas, respeitando essa ordem: 
+    >f(palavra fora, *tag, $atributo : nome, { f(palavra fora, *tag, $atributo : nome)} )
+* Para escrever uma tag, deve-se adicionar o simbolo '*' junto ao nome da tag válida
+    > Input
+    >f(*div)
+    > Out
+    > <div></div>
 
 ### Metodologia
 * Utilizamos a biblioteca Lark do Python, para facilitar o desenvolvimento do Grammar.
