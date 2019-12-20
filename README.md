@@ -16,7 +16,7 @@ Para escrever um código na linguagem Hyperfython, o programador deve serguir a 
     * Uma palavra fora ou entre Tags pode ser escrita livremente, desde que entre uma função
     * Uma função deve estar entre '{ }'
 
-![regras](img/regras.png) 
+![regras](img/regrastx.png)
 
 * Exemplo de In/Output
 
