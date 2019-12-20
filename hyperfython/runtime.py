@@ -37,7 +37,10 @@ def retornaHtml(sexpr):
   fila = []
   pilha = []
   createHtml(sexpr,fila,pilha)
-  fila.append('>')
+  if (len(sexpr) == 2 and sexpr[1][0] == 'tag' ):
+    fila.append('>')  
+  elif(len(sexpr) > 2 and sexpr[2][0] == 'tag'):
+    fila.append('>')  
   resultado = ''.join(map(str,fila)) + ''.join(map(str,pilha))
   return resultado
 
