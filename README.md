@@ -14,8 +14,23 @@ Para escrever um código na linguagem Hyperfython, o programador deve serguir a 
     * Tag deve ser antecedido por '*'
     * Atributo deve ser antecedido por '$'
     * Uma palavra fora ou entre Tags pode ser escrita livremente, desde que entre uma função
-    * Uma função deve estar entre '{}'
-![regras]()    
+    * Uma função deve estar entre '{ }'
+
+![regras](img/regras.png) 
+
+* Exemplo de In/Output
+
+![inout](img/inout.png)
+
+* Exemplo em execução
+
+![testecomplexo](img/testecomplexo.png)
+
+
+### Para rodar o projeto:
+Para a execução do projeto basta clonar o repositório, acessar a pasta 'hyperfython' 
+e executar o comando a seguir em um terminal linux(de preferência):
+> python3 \_\_main\_\_.py
 
 ### Metodologia
 * Utilizamos a biblioteca Lark do Python, para facilitar o desenvolvimento do Grammar.
