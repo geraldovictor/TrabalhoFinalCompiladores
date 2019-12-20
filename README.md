@@ -10,11 +10,12 @@ Para escrever um código na linguagem Hyperfython, o programador deve serguir a 
 * O código deve iniciar com a letra 'f' seguido de parenteses '( )'
 * Dentro dos parenteses é aceito: uma string, uma tag e seus atributos, e uma nova função, onde pode se repetir as entradas, respeitando essa ordem: 
     >f(palavra fora, *tag, $atributo : nome, { f(palavra fora, *tag, $atributo : nome)} )
-* Para escrever uma tag, deve-se adicionar o simbolo '*' junto ao nome da tag válida
-    > Input
-    >f(*div)
-    > Out
-    > <div></div>
+* As regras de sintaxe de cada tipo estão exemplificadas abaixo:
+    * Tag deve ser antecedido por '*'
+    * Atributo deve ser antecedido por '$'
+    * Uma palavra fora ou entre Tags pode ser escrita livremente, desde que entre uma função
+    * Uma função deve estar entre '{}'
+![regras]()    
 
 ### Metodologia
 * Utilizamos a biblioteca Lark do Python, para facilitar o desenvolvimento do Grammar.
