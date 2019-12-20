@@ -1,11 +1,12 @@
-from hyperfython import parser
+from parser import parse as parse_src
+from runtime import eval_sexpr, retornaHtml, createHtml
 
 while True:
-    text = input('hyperfython >')
-    result, error = parse(text)
+    src = input('hyperfython >')
+    sexpr = parse_src(src)
+    if eval_sexpr(sexpr) == 1:
+      value = retornaHtml(sexpr)
+      print(value)
 
-    if error: print(error.as_string())
-    else: print(result)
 
-if __name__ == '__main__':
-    main()
+
